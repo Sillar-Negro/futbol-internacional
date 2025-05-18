@@ -1,45 +1,71 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Noticias de fútbol internacional en tiempo real" />
-  <title>Noticias de Fútbol Internacional</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <header>
-    <h1>Noticias de Fútbol Internacional</h1>
-    <nav>
-      <ul>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Ligas</a></li>
-        <li><a href="#">Equipos</a></li>
-        <li><a href="#">Contacto</a></li>
-      </ul>
-    </nav>
-  </header>
+const apiKey = 'TU_CLAVE_API'; // Reemplaza con tu clave API de API-Football
 
-  <main>
-    <section id="live-scores">
-      <h2>Resultados en Vivo</h2>
-      <div id="scores-container">
-        <!-- Resultados en vivo se cargarán aquí -->
-      </div>
-    </section>
+// Función para obtener resultados en vivo
+async function fetchLiveScores() {
+  try {
+    const response = await fetch('https://v3.football.api-sports.io/fixtures?live=all', {
+      method: 'GET',
+      headers: {
+        'x-apisports-key': apiKey
+      }
+    });
+    const data = await response.json();
+    displayLiveScores(data.response);
+  } catch (error) {
+    console.error('Error al obtener resultados en vivo:', error);
+  }
+}
 
-    <section id="news">
-      <h2>Últimas Noticias</h2>
-      <div id="news-container">
-        <!-- Noticias se cargarán aquí -->
-      </div>
-    </section>
-  </main>
+// Función para mostrar resultados en vivo
+function displayLiveScores(matches) {
+  const container = document.getElementById('scores-container');
+  container.innerHTML = '';
 
-  <footer>
-    <p>&copy; 2025 Noticias de Fútbol Internacional. Todos los derechos reservados.</p>
-  </footer>
+  matches.forEach(match => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <h3>${match.teams.home.name} vs ${match.teams.away.name}</h3>
+      <p>${match.goals.home} - ${match.goals.away}</p>
+      <p>Minuto: ${match.fixture.status.elapsed}'</p>
+    `;
+    container.appendChild(card);
+  });
+}
 
-  <script src="script.js"></script>
-</body>
-</html>
+// Función para obtener noticias (simulada)
+function fetchNews() {
+  const news = [
+    {
+      title: 'Transferencia sorpresa en la Premier League',
+      content: 'Un jugador estrella ha sido transferido inesperadamente a un rival directo.'
+    },
+    {
+      title: 'Resultados de la Champions League',
+      content: 'Resumen de los partidos más destacados de la jornada.'
+    },
+    {
+      title: 'Lesión de último minuto',
+      content: 'Un jugador clave sufre una lesión durante el entrenamiento.'
+    }
+  ];
+
+  const container = document.getElementById('news-container');
+  container.innerHTML = '';
+
+  news.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <h3>${item.title}</h3>
+      <p>${item.content}</p>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// Inicializar funciones al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+  fetchLiveScores();
+  fetchNews();
+});
