@@ -1,1 +1,115 @@
-# futbol-internacional
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fútbol Internacional Hoy</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0c1c2c;
+      color: #fff;
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    header h1 {
+      font-size: 2em;
+      color: #00d084;
+    }
+    .match {
+      background-color: #1e2a38;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease;
+    }
+    .match:hover {
+      transform: scale(1.02);
+    }
+    .teams {
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    .score, .time {
+      margin-top: 8px;
+    }
+    #loader {
+      text-align: center;
+      margin-top: 50px;
+    }
+    @media (max-width: 600px) {
+      .teams {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Partidos Internacionales de Hoy</h1>
+    <p>Datos en vivo gracias a API-Football</p>
+  </header>
+
+  <div id="matches"></div>
+  <div id="loader">🔄 Cargando partidos...</div>
+
+  <script>
+    const apiKey = 'TU_API_KEY'; // ← Reemplaza con tu API key
+
+    const today = new Date().toISOString().split('T')[0];
+    const endpoint = `https://v3.football.api-sports.io/fixtures?date=${today}`;
+
+    fetch(endpoint, {
+      method: "GET",
+      headers: {
+        "x-apisports-key": apiKey
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      const matchesDiv = document.getElementById('matches');
+      const loader = document.getElementById('loader');
+      loader.style.display = 'none';
+
+      const matches = data.response;
+
+      if (matches.length === 0) {
+        matchesDiv.innerHTML = '<p>No hay partidos programados para hoy.</p>';
+        return;
+      }
+
+      matches.forEach(match => {
+        const home = match.teams.home.name;
+        const away = match.teams.away.name;
+        const goalsHome = match.goals.home;
+        const goalsAway = match.goals.away;
+        const date = new Date(match.fixture.date);
+        const time = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        const matchHTML = `
+          <div class="match">
+            <div class="teams">${home} vs ${away}</div>
+            <div class="time">⏰ Hora: ${time}</div>
+            <div class="score">🥅 Resultado: ${goalsHome ?? '-'} - ${goalsAway ?? '-'}</div>
+          </div>
+        `;
+        matchesDiv.innerHTML += matchHTML;
+      });
+    })
+    .catch(error => {
+      document.getElementById('loader').innerText = '⚠️ Error al cargar los partidos.';
+      console.error('Error al obtener los partidos:', error);
+    });
+  </script>
+</body>
+</html>
