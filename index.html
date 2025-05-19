@@ -53,50 +53,138 @@
     }
   </style>
 </head>
-<body>
-
-  <main>
-    <section id="live-scores">
-      <h2>Resultados en Vivo</h2>
-      <div id="scores-container">
-        <!-- Resultados en vivo se cargarán aquí -->
-      </div>
-    </section>
-
-    <section id="news">
-      <h2>Últimas Noticias</h2>
-      <div id="news-container">
-        <!-- Noticias se cargarán aquí -->
-      </div>
-    </section>
-    
-    <section id="standings">
-  <h2>Clasificación de la Liga</h2>
-  <div id="standings-container">
-    <!-- Clasificaciones se cargarán aquí -->
-  </div>
-</section>
-
-<section id="fixtures">
-  <h2>Próximos Partidos</h2>
-  <div id="fixtures-container">
-    <!-- Calendario de partidos se cargará aquí -->
-  </div>
-</section>
-
-<section id="topscorers">
-  <h2>Máximos Goleadores</h2>
-  <div id="topscorers-container">
-    <!-- Máximos goleadores se cargarán aquí -->
-  </div>
-</section>
-  </main>
-  
+<body>  
   <header>
     <h1>Partidos Internacionales de Hoy</h1>
     <p>Datos en vivo gracias a API-Football y Pablo xd</p>
   </header>
+  <header>
+    <h1>Fútbol Internacional Hoy</h1>
+    <nav>
+      <ul>
+        <li><a href="#noticias">Noticias</a></li>
+        <li><a href="#resultados">Resultados</a></li>
+        <li><a href="#clasificacion">Clasificación</a></li>
+        <li><a href="#proximos-partidos">Próximos Partidos</a></li>
+        <li><a href="#goleadores">Goleadores</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section id="noticias">
+      <h2>Últimas Noticias</h2>
+      <div id="contenedor-noticias"></div>
+    </section>
 
+    <section id="resultados">
+      <h2>Resultados en Vivo</h2>
+      <div id="contenedor-resultados"></div>
+    </section>
+
+    <section id="clasificacion">
+      <h2>Clasificación de la Liga</h2>
+      <div id="contenedor-clasificacion"></div>
+    </section>
+
+    <section id="proximos-partidos">
+      <h2>Próximos Partidos</h2>
+      <div id="contenedor-proximos-partidos"></div>
+    </section>
+
+    <section id="goleadores">
+      <h2>Máximos Goleadores</h2>
+      <div id="contenedor-goleadores"></div>
+    </section>
+  </main>
+  async function cargarNoticias() {
+  try {
+    const respuesta = await fetch('https://api.ejemplo.com/noticias');
+    const datos = await respuesta.json();
+    const contenedor = document.getElementById('contenedor-noticias');
+    datos.articulos.forEach(noticia => {
+      const articulo = document.createElement('article');
+      articulo.innerHTML = `
+        <h3>${noticia.titulo}</h3>
+        <p>${noticia.descripcion}</p>
+        <a href="${noticia.enlace}" target="_blank">Leer más</a>
+      `;
+      contenedor.appendChild(articulo);
+    });
+  } catch (error) {
+    console.error('Error al cargar noticias:', error);
+  }
+}
+async function cargarResultados() {
+  try {
+    const respuesta = await fetch('https://api.ejemplo.com/resultados');
+    const datos = await respuesta.json();
+    const contenedor = document.getElementById('contenedor-resultados');
+    datos.partidos.forEach(partido => {
+      const div = document.createElement('div');
+      div.innerHTML = `
+        <p>${partido.equipoLocal} ${partido.marcadorLocal} - ${partido.marcadorVisitante} ${partido.equipoVisitante}</p>
+      `;
+      contenedor.appendChild(div);
+    });
+  } catch (error) {
+    console.error('Error al cargar resultados:', error);
+  }
+}
+async function cargarClasificacion() {
+  try {
+    const respuesta = await fetch('https://api.ejemplo.com/clasificacion');
+    const datos = await respuesta.json();
+    const contenedor = document.getElementById('contenedor-clasificacion');
+    datos.equipos.forEach(equipo => {
+      const div = document.createElement('div');
+      div.innerHTML = `
+        <p>${equipo.posicion}. ${equipo.nombre} - ${equipo.puntos} pts</p>
+      `;
+      contenedor.appendChild(div);
+    });
+  } catch (error) {
+    console.error('Error al cargar clasificación:', error);
+  }
+}
+async function cargarProximosPartidos() {
+  try {
+    const respuesta = await fetch('https://api.ejemplo.com/proximos-partidos');
+    const datos = await respuesta.json();
+    const contenedor = document.getElementById('contenedor-proximos-partidos');
+    datos.partidos.forEach(partido => {
+      const div = document.createElement('div');
+      div.innerHTML = `
+        <p>${partido.fecha} - ${partido.equipoLocal} vs ${partido.equipoVisitante}</p>
+      `;
+      contenedor.appendChild(div);
+    });
+  } catch (error) {
+    console.error('Error al cargar próximos partidos:', error);
+  }
+}
+async function cargarGoleadores() {
+  try {
+    const respuesta = await fetch('https://api.ejemplo.com/goleadores');
+    const datos = await respuesta.json();
+    const contenedor = document.getElementById('contenedor-goleadores');
+    datos.jugadores.forEach(jugador => {
+      const div = document.createElement('div');
+      div.innerHTML = `
+        <p>${jugador.nombre} - ${jugador.goles} goles</p>
+      `;
+      contenedor.appendChild(div);
+    });
+  } catch (error) {
+    console.error('Error al cargar goleadores:', error);
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  cargarNoticias();
+  cargarResultados();
+  cargarClasificacion();
+  cargarProximosPartidos();
+  cargarGoleadores();
+});
   <div id="matches"></div>
   <div id="loader">🔄 Cargando partidos...</div>
   <div id="wg-api-football-games"
@@ -175,4 +263,3 @@
 
 </body>
 </html>
-
