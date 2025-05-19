@@ -114,38 +114,6 @@
     console.error('Error al cargar noticias:', error);
   }
 }
-async function cargarResultados() {
-  try {
-    const respuesta = await fetch('https://api.ejemplo.com/resultados');
-    const datos = await respuesta.json();
-    const contenedor = document.getElementById('contenedor-resultados');
-    datos.partidos.forEach(partido => {
-      const div = document.createElement('div');
-      div.innerHTML = `
-        <p>${partido.equipoLocal} ${partido.marcadorLocal} - ${partido.marcadorVisitante} ${partido.equipoVisitante}</p>
-      `;
-      contenedor.appendChild(div);
-    });
-  } catch (error) {
-    console.error('Error al cargar resultados:', error);
-  }
-}
-async function cargarClasificacion() {
-  try {
-    const respuesta = await fetch('https://api.ejemplo.com/clasificacion');
-    const datos = await respuesta.json();
-    const contenedor = document.getElementById('contenedor-clasificacion');
-    datos.equipos.forEach(equipo => {
-      const div = document.createElement('div');
-      div.innerHTML = `
-        <p>${equipo.posicion}. ${equipo.nombre} - ${equipo.puntos} pts</p>
-      `;
-      contenedor.appendChild(div);
-    });
-  } catch (error) {
-    console.error('Error al cargar clasificación:', error);
-  }
-}
 async function cargarProximosPartidos() {
   try {
     const respuesta = await fetch('https://api.ejemplo.com/proximos-partidos');
@@ -162,28 +130,9 @@ async function cargarProximosPartidos() {
     console.error('Error al cargar próximos partidos:', error);
   }
 }
-async function cargarGoleadores() {
-  try {
-    const respuesta = await fetch('https://api.ejemplo.com/goleadores');
-    const datos = await respuesta.json();
-    const contenedor = document.getElementById('contenedor-goleadores');
-    datos.jugadores.forEach(jugador => {
-      const div = document.createElement('div');
-      div.innerHTML = `
-        <p>${jugador.nombre} - ${jugador.goles} goles</p>
-      `;
-      contenedor.appendChild(div);
-    });
-  } catch (error) {
-    console.error('Error al cargar goleadores:', error);
-  }
-}
 document.addEventListener('DOMContentLoaded', () => {
   cargarNoticias();
-  cargarResultados();
-  cargarClasificacion();
   cargarProximosPartidos();
-  cargarGoleadores();
 });
   <div id="matches"></div>
   <div id="loader">🔄 Cargando partidos...</div>
@@ -219,44 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
       headers: {
         "x-apisports-key": apiKey
       }
-    })
-    .then(response => response.json())
-    .then(data => {
-      const matchesDiv = document.getElementById('matches');
-      const loader = document.getElementById('loader');
-      loader.style.display = 'none';
-
-      const matches = data.response;
-
-      if (matches.length === 0) {
-        matchesDiv.innerHTML = '<p>No hay partidos programados para hoy.</p>';
-        return;
-      }
-
-      matches.forEach(match => {
-        const home = match.teams.home.name;
-        const away = match.teams.away.name;
-        const goalsHome = match.goals.home;
-        const goalsAway = match.goals.away;
-        const date = new Date(match.fixture.date);
-        const time = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-        const matchHTML = `
-          <div class="match">
-            <div class="teams">${home} vs ${away}</div>
-            <div class="time">⏰ Hora: ${time}</div>
-            <div class="score">🥅 Resultado: ${goalsHome ?? '-'} - ${goalsAway ?? '-'}</div>
-          </div>
-        `;
-        matchesDiv.innerHTML += matchHTML;
-      });
-    })
-    .catch(error => {
-      document.getElementById('loader').innerText = '⚠️ Error al cargar los partidos.';
-      console.error('Error al obtener los partidos:', error);
-    });
-  </script>
-  
    <footer>
     <p>&copy; 2025 Noticias de Fútbol Internacional. Todos los derechos reservados.</p>
   </footer>
