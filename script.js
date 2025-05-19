@@ -1,5 +1,24 @@
 const apiKey = 'fb4c0568ab1c59276c47ec15672e639c'; // Reemplaza con tu clave API de API-Football
 
+<div id="wg-api-football-games"
+     data-host="v3.football.api-sports.io"
+     data-key="fb4c0568ab1c59276c47ec15672e639c"
+     data-date=""
+     data-league=""
+     data-season=""
+     data-theme=""
+     data-refresh="15"
+     data-show-toolbar="true"
+     data-show-errors="false"
+     data-show-logos="true"
+     data-modal-game="true"
+     data-modal-standings="true"
+     data-modal-show-logos="true">
+</div>
+<script
+    type="module"
+    src="https://widgets.api-sports.io/2.0.3/widgets.js">
+</script>
 // Función para obtener clasificaciones
 async function fetchStandings() {
   try {
