@@ -1,4 +1,4 @@
-const apiKey = 'TU_CLAVE_API'; // Reemplaza con tu clave API de API-Football
+const apiKey = 'fb4c0568ab1c59276c47ec15672e639c'; // Reemplaza con tu clave API de API-Football
 
 // Función para obtener resultados en vivo
 async function fetchLiveScores() {
