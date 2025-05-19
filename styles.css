@@ -76,3 +76,15 @@ footer {
   width: 100%;
   bottom: 0;
 }
+#standings-container, #fixtures-container, #topscorers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.standing-row, .fixture, .topscorer {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
