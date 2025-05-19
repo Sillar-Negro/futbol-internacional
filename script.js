@@ -1,66 +1,93 @@
 const apiKey = 'fb4c0568ab1c59276c47ec15672e639c'; // Reemplaza con tu clave API de API-Football
 
-// Función para obtener resultados en vivo
-async function fetchLiveScores() {
+// Función para obtener clasificaciones
+async function fetchStandings() {
   try {
-    const response = await fetch('https://v3.football.api-sports.io/fixtures?live=all', {
+    const response = await fetch('https://v3.football.api-sports.io/standings?league=39&season=2024', {
       method: 'GET',
       headers: {
         'x-apisports-key': apiKey
       }
     });
     const data = await response.json();
-    displayLiveScores(data.response);
+    displayStandings(data.response[0].league.standings[0]);
   } catch (error) {
-    console.error('Error al obtener resultados en vivo:', error);
+    console.error('Error al obtener las clasificaciones:', error);
   }
 }
 
-// Función para mostrar resultados en vivo
-function displayLiveScores(matches) {
-  const container = document.getElementById('scores-container');
+function displayStandings(standings) {
+  const container = document.getElementById('standings-container');
   container.innerHTML = '';
 
-  matches.forEach(match => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <h3>${match.teams.home.name} vs ${match.teams.away.name}</h3>
-      <p>${match.goals.home} - ${match.goals.away}</p>
-      <p>Minuto: ${match.fixture.status.elapsed}'</p>
+  standings.forEach(team => {
+    const row = document.createElement('div');
+    row.className = 'standing-row';
+    row.innerHTML = `
+      <span>${team.rank}. ${team.team.name} - ${team.points} pts</span>
     `;
-    container.appendChild(card);
+    container.appendChild(row);
   });
 }
 
-// Función para obtener noticias (simulada)
-function fetchNews() {
-  const news = [
-    {
-      title: 'Transferencia sorpresa en la Premier League',
-      content: 'Un jugador estrella ha sido transferido inesperadamente a un rival directo.'
-    },
-    {
-      title: 'Resultados de la Champions League',
-      content: 'Resumen de los partidos más destacados de la jornada.'
-    },
-    {
-      title: 'Lesión de último minuto',
-      content: 'Un jugador clave sufre una lesión durante el entrenamiento.'
-    }
-  ];
+// Función para obtener próximos partidos
+async function fetchFixtures() {
+  try {
+    const response = await fetch('https://v3.football.api-sports.io/fixtures?league=39&season=2024&next=10', {
+      method: 'GET',
+      headers: {
+        'x-apisports-key': apiKey
+      }
+    });
+    const data = await response.json();
+    displayFixtures(data.response);
+  } catch (error) {
+    console.error('Error al obtener los próximos partidos:', error);
+  }
+}
 
-  const container = document.getElementById('news-container');
+function displayFixtures(fixtures) {
+  const container = document.getElementById('fixtures-container');
   container.innerHTML = '';
 
-  news.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <h3>${item.title}</h3>
-      <p>${item.content}</p>
+  fixtures.forEach(match => {
+    const matchDiv = document.createElement('div');
+    matchDiv.className = 'fixture';
+    matchDiv.innerHTML = `
+      <p>${match.teams.home.name} vs ${match.teams.away.name}</p>
+      <p>Fecha: ${new Date(match.fixture.date).toLocaleDateString()}</p>
     `;
-    container.appendChild(card);
+    container.appendChild(matchDiv);
+  });
+}
+
+// Función para obtener máximos goleadores
+async function fetchTopScorers() {
+  try {
+    const response = await fetch('https://v3.football.api-sports.io/players/topscorers?league=39&season=2024', {
+      method: 'GET',
+      headers: {
+        'x-apisports-key': apiKey
+      }
+    });
+    const data = await response.json();
+    displayTopScorers(data.response);
+  } catch (error) {
+    console.error('Error al obtener los máximos goleadores:', error);
+  }
+}
+
+function displayTopScorers(players) {
+  const container = document.getElementById('topscorers-container');
+  container.innerHTML = '';
+
+  players.forEach(player => {
+    const playerDiv = document.createElement('div');
+    playerDiv.className = 'topscorer';
+    playerDiv.innerHTML = `
+      <p>${player.player.name} - ${player.statistics[0].goals.total} goles</p>
+    `;
+    container.appendChild(playerDiv);
   });
 }
 
@@ -68,4 +95,7 @@ function fetchNews() {
 document.addEventListener('DOMContentLoaded', () => {
   fetchLiveScores();
   fetchNews();
+  fetchStandings();
+  fetchFixtures();
+  fetchTopScorers();
 });
