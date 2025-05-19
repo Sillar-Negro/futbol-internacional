@@ -98,7 +98,7 @@
   </main>
   async function cargarNoticias() {
   try {
-    const respuesta = await fetch('https://api.ejemplo.com/noticias');
+    const respuesta = await fetch('https://rapidapi.com/arkasarkar2000/api/football-news-aggregator-live');
     const datos = await respuesta.json();
     const contenedor = document.getElementById('contenedor-noticias');
     datos.articulos.forEach(noticia => {
