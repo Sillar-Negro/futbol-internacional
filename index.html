@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fútbol Internacional Hoy</title>
+  <title>Fútbol Internacional</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -26,22 +26,48 @@
       100% { background-position: 0% 50%; }
     }
 
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo-box {
+      display: inline-block;
+      padding: 20px 30px;
+      border-radius: 20px;
+      background: linear-gradient(to right, rgba(131,58,180,0.6), rgba(253,29,29,0.6), rgba(252,176,69,0.6));
+      box-shadow: 0 0 20px rgba(252,176,69,0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .logo-box h1 {
+      font-size: 2.8em;
+      font-weight: 700;
+      margin: 0;
+      background: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+    }
+
+    .logo-box p {
+      margin-top: 10px;
+      font-size: 1em;
+      color: #eee;
+      font-weight: 300;
+    }
+
     header, .match, .noticia, form, section {
-      background: rgba(0, 0, 0, 0.4); /* efecto glassmorphism */
+      background: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border-radius: 16px;
       padding: 20px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
       margin-bottom: 20px;
-    }
-
-    header h1 {
-      font-size: 2.2em;
-      font-weight: 700;
-      background: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
 
     .match, .noticia {
@@ -121,12 +147,15 @@
     }
   </style>
 </head>
-<body>  
-  <header>
-    <h1>Partidos Internacionales de Hoy</h1>
-    <p>Datos en vivo gracias a API-Football y Pablo xd</p>
-  </header>
 
+<body>
+  <header>
+    <div class="logo-box">
+      <h1>Fútbol Internacional</h1>
+      <p>Noticias y datos en vivo gracias a API-Football, Api Gnews y Pablo xd</p>
+    </div>
+  </header>
+  
   <section id="nosotros">
     <h2>Sobre la página</h2>
     <p>Página web dedicada a brindar información sobre el deporte rey en el mundo, el "fútbol". Además, ayudamos a nuestro público seguidor en juicios estocásticos (las jijas) sobre el deporte :p</p>
