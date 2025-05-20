@@ -57,38 +57,18 @@
     <h1>Partidos Internacionales de Hoy</h1>
     <p>Datos en vivo gracias a API-Football y Pablo xd</p>
   </header>
-  <header>
-    <h1>Fútbol Internacional Hoy</h1>
-    <nav>
-      <ul>
-        <li><a href="#noticias">Noticias</a></li>
-        <h1>Últimas Noticias de Fútbol</h1>
-  <div id="noticias"></div>
-        </head>
-<body>
-  <h1>Últimas Noticias de Fútbol</h1>
-  <div id="noticias"></div>
-  <script>
-        <li><a href="#clasificacion">Clasificación</a></li>
-        <li><a href="#proximos-partidos">Próximos Partidos</a></li>
-      </ul>
-    </nav>
-
   <section id="nosotros">
     <h2>Sobre la página</h2>
     <p>Página web dedicada a brindar información sobre el deporte rey en el mundo el "fútbol", ademas ayudámos  a nuestro público seguidor en juicios estocásticos (las jijas) sobre el deporte :p
     </div>
   </section>
-
   <section id="noticias">
     <h2>Noticias</h2>
     <div class="noticias">
       <link scr="https://rpp.pe/futbol/futbol-mundial">
   </section>
-
   <section id="clasificacion">
     <h2>Clasificación</h2>
-    
     </div>
   </section
   <section id="contacto">
@@ -100,30 +80,6 @@
       <button type="submit">Enviar</button>
     </form>
   </section>
-<script>
-    const apiKey = '8f3852db6faf4027a7b7ca47c005621f'; // 🔑 Reemplaza con tu propia API Key de NewsAPI
-
-    fetch(`https://newsapi.org/v2/everything?q=fútbol&language=es&sortBy=publishedAt&pageSize=5&apiKey=${apiKey}`)
-      .then(response => response.json())
-      .then(data => {
-        const noticiasDiv = document.getElementById('noticias');
-        data.articles.forEach(article => {
-          const noticia = document.createElement('div');
-          noticia.className = 'noticia';
-          noticia.innerHTML = `
-            <h3>${article.title}</h3>
-            <p>${article.description || 'Sin descripción'}</p>
-            <a href="${article.url}" target="_blank">Leer más</a>
-          `;
-          noticiasDiv.appendChild(noticia);
-        });
-      })
-      .catch(error => {
-        console.error('Error al obtener las noticias:', error);
-      });
-  </script>
-</body>
-</html>
   </header>
   <div id="matches"></div>
   <div id="loader">🔄 Cargando partidos...</div>
@@ -160,5 +116,29 @@
    <footer>
     <p>&copy; 2025 Noticias de Fútbol Internacional. Todos los derechos reservados.</p>
   </footer>
+</body>
+</html>
+    <script>
+    const apiKey = '8f3852db6faf4027a7b7ca47c005621f'; // 🔑 Reemplaza con tu propia API Key de NewsAPI
+
+    fetch(`https://newsapi.org/v2/everything?q=fútbol&language=es&sortBy=publishedAt&pageSize=5&apiKey=${apiKey}`)
+      .then(response => response.json())
+      .then(data => {
+        const noticiasDiv = document.getElementById('noticias');
+        data.articles.forEach(article => {
+          const noticia = document.createElement('div');
+          noticia.className = 'noticia';
+          noticia.innerHTML = `
+            <h3>${article.title}</h3>
+            <p>${article.description || 'Sin descripción'}</p>
+            <a href="${article.url}" target="_blank">Leer más</a>
+          `;
+          noticiasDiv.appendChild(noticia);
+        });
+      })
+      .catch(error => {
+        console.error('Error al obtener las noticias:', error);
+      });
+  </script>
 </body>
 </html>
