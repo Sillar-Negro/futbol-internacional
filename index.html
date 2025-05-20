@@ -4,76 +4,106 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Fútbol Internacional Hoy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
     }
+
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0c1c2c;
+      font-family: 'Poppins', sans-serif;
+      background-color: #1a1a2e;
       color: #fff;
       padding: 20px;
     }
+
     header {
       text-align: center;
       margin-bottom: 30px;
     }
+
     header h1 {
-      font-size: 2em;
-      color: #00d084;
+      font-size: 2.2em;
+      font-weight: 700;
+      background: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
+
     .match, .noticia {
-      background-color: #1e2a38;
+      background-color: #2f2e41;
       margin-bottom: 15px;
       padding: 15px;
       border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       transition: transform 0.2s ease;
     }
+
     .match:hover, .noticia:hover {
       transform: scale(1.02);
+      background: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
+      color: #fff;
     }
+
     .teams {
-      font-weight: bold;
+      font-weight: 600;
       font-size: 1.2em;
     }
+
     .score, .time {
       margin-top: 8px;
     }
+
     #loader {
       text-align: center;
       margin-top: 50px;
+      color: #fcb045;
+      font-style: italic;
     }
+
     form {
-      background-color: #1e2a38;
+      background-color: #2f2e41;
       padding: 20px;
       border-radius: 12px;
       max-width: 500px;
       margin: 0 auto;
     }
+
     input, textarea, button {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
       border-radius: 6px;
       border: none;
+      font-size: 1em;
+      font-family: 'Poppins', sans-serif;
     }
+
+    input, textarea {
+      background-color: #1a1a2e;
+      color: #fff;
+    }
+
     button {
-      background-color: #00d084;
-      color: #000;
+      background: linear-gradient(to right, #fd1d1d, #fcb045);
+      color: #fff;
       font-weight: bold;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
+
     button:hover {
-      background-color: #00a86b;
+      background: linear-gradient(to right, #fcb045, #fd1d1d);
     }
+
     footer {
       margin-top: 50px;
       text-align: center;
       font-size: 0.9em;
       color: #ccc;
     }
+
     @media (max-width: 600px) {
       .teams {
         font-size: 1em;
