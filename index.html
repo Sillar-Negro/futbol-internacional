@@ -51,6 +51,30 @@
         font-size: 1em;
       }
     }
+    <title>Noticias de Fútbol</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    .noticia {
+      background: #fff;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .noticia a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+    .noticia a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>  
@@ -63,6 +87,32 @@
     <nav>
       <ul>
         <li><a href="#noticias">Noticias</a></li>
+        <h1>Últimas Noticias de Fútbol</h1>
+  <div id="noticias"></div>
+  <script>
+    const apiKey = '8f3852db6faf4027a7b7ca47c005621f'; // 🔑 Reemplaza con tu propia API Key de NewsAPI
+
+    fetch(`https://newsapi.org/v2/everything?q=fútbol&language=es&sortBy=publishedAt&pageSize=5&apiKey=${apiKey}`)
+      .then(response => response.json())
+      .then(data => {
+        const noticiasDiv = document.getElementById('noticias');
+        data.articles.forEach(article => {
+          const noticia = document.createElement('div');
+          noticia.className = 'noticia';
+          noticia.innerHTML = `
+            <h3>${article.title}</h3>
+            <p>${article.description || 'Sin descripción'}</p>
+            <a href="${article.url}" target="_blank">Leer más</a>
+          `;
+          noticiasDiv.appendChild(noticia);
+        });
+      })
+      .catch(error => {
+        console.error('Error al obtener las noticias:', error);
+      });
+  </script>
+</body>
+</html>
         <li><a href="#clasificacion">Clasificación</a></li>
         <li><a href="#proximos-partidos">Próximos Partidos</a></li>
       </ul>
@@ -92,7 +142,6 @@ axios.get('https://newsapi.org/v2/everything', {
 }).catch(err => {
   console.error(err);
 });
-
   </section>
 
   <section id="clasificacion">
