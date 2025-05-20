@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -44,16 +45,16 @@
     }
 
     .logo-titulo {
-    font-size: 2.5em;
-    font-weight: 700;
-    background: linear-gradient(to right, #222, #555);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 1px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-    padding: 10px;
-    border-radius: 8px;
-  }
+      font-size: 2.5em;
+      font-weight: 700;
+      background: linear-gradient(to right, #222, #555);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+      padding: 10px;
+      border-radius: 8px;
+    }
 
     .logo-box p {
       margin-top: 10px;
@@ -142,9 +143,45 @@
       color: #ccc;
     }
 
-    @media (max-width: 600px) {
-      .teams {
-        font-size: 1em;
+    .layout {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .main-content {
+      flex: 3;
+      min-width: 300px;
+    }
+
+    .sidebar {
+      flex: 1;
+      min-width: 250px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .sidebar h2 {
+      margin-top: 0;
+      background: linear-gradient(to right, #fcb045, #fd1d1d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @media (max-width: 768px) {
+      .layout {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        max-height: none;
+        margin-top: 20px;
       }
     }
   </style>
@@ -153,55 +190,61 @@
 <body>
   <header>
     <div class="logo-box">
-      <h1>Fútbol Internacional</h1>
+      <h1 class="logo-titulo">Fútbol Internacional</h1>
       <p>Noticias y datos en vivo gracias a API-Football, Api Gnews y Pablo xd</p>
     </div>
   </header>
-  
-  <section id="nosotros">
-    <h2>Sobre la página</h2>
-    <p>Página web dedicada a brindar información sobre el deporte rey en el mundo, el "fútbol". Además, ayudamos a nuestro público seguidor en juicios estocásticos (las jijas) sobre el deporte :p</p>
-  </section>
 
-  <section id="noticias">
-    <h2>Noticias</h2> 
-    <div id="loader">🔄 Cargando noticias...</div>
-  </section>
+  <div class="layout">
+    <main class="main-content">
+      <section id="nosotros">
+        <h2>Sobre la página</h2>
+        <p>Página web dedicada a brindar información sobre el deporte rey en el mundo, el "fútbol". Además, ayudamos a nuestro público seguidor en juicios estocásticos (las jijas) sobre el deporte :p</p>
+      </section>
 
-  <section id="clasificacion">
-    <h2>Clasificación</h2>
-    <!-- Puedes insertar una tabla o widget aquí -->
-  </section>
+      <section id="clasificacion">
+        <h2>Clasificación</h2>
+        <!-- Puedes insertar una tabla o widget aquí -->
+      </section>
 
-  <section id="contacto">
-    <h2>Contacto</h2>
-    <form action="https://formspree.io/f/manookbg" method="POST">
-      <label>Nombre:<br /><input type="text" name="nombre" required /></label><br /><br />
-      <label>Correo:<br /><input type="email" name="correo" required /></label><br /><br />
-      <label>Mensaje:<br /><textarea name="mensaje" rows="5" required></textarea></label><br /><br />
-      <button type="submit">Enviar</button>
-    </form>
-  </section>
+      <section id="contacto">
+        <h2>Contacto</h2>
+        <form action="https://formspree.io/f/manookbg" method="POST">
+          <label>Nombre:<br /><input type="text" name="nombre" required /></label><br /><br />
+          <label>Correo:<br /><input type="email" name="correo" required /></label><br /><br />
+          <label>Mensaje:<br /><textarea name="mensaje" rows="5" required></textarea></label><br /><br />
+          <button type="submit">Enviar</button>
+        </form>
+      </section>
 
-  <section id="partidos">
-    <h2>Partidos en Vivo</h2>
-    <div id="wg-api-football-games"
-         data-host="v3.football.api-sports.io"
-         data-key="6a137e5e1fa7fe004de01978ea090b22"
-         data-id="718243"
-         data-date=""
-         data-league=""
-         data-season=""
-         data-theme=""
-         data-refresh="15"
-         data-show-toolbar="true"
-         data-show-errors="false"
-         data-show-logos="true"
-         data-modal-game="true"
-         data-modal-standings="true"
-         data-modal-show-logos="true">
-    </div>
-  </section>
+      <section id="partidos">
+        <h2>Partidos en Vivo</h2>
+        <div id="wg-api-football-games"
+             data-host="v3.football.api-sports.io"
+             data-key="6a137e5e1fa7fe004de01978ea090b22"
+             data-id="718243"
+             data-date=""
+             data-league=""
+             data-season=""
+             data-theme=""
+             data-refresh="15"
+             data-show-toolbar="true"
+             data-show-errors="false"
+             data-show-logos="true"
+             data-modal-game="true"
+             data-modal-standings="true"
+             data-modal-show-logos="true">
+        </div>
+      </section>
+    </main>
+
+    <aside class="sidebar">
+      <section id="noticias">
+        <h2>📰 Noticias</h2> 
+        <div id="loader">🔄 Cargando noticias...</div>
+      </section>
+    </aside>
+  </div>
 
   <footer>
     <p>&copy; 2025 Noticias de Fútbol Internacional. Todos los derechos reservados.</p>
