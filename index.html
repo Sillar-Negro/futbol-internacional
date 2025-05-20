@@ -78,6 +78,21 @@
     <h2>Noticias</h2>
     <div class="noticias">
       <link scr="https://rpp.pe/futbol/futbol-mundial">
+      const axios = require('axios');
+
+axios.get('https://newsapi.org/v2/everything', {
+  params: {
+    q: 'fútbol OR football',
+    language: 'es',
+    sortBy: 'publishedAt',
+    apiKey: '8f3852db6faf4027a7b7ca47c005621f'
+  }
+}).then(res => {
+  console.log(res.data.articles);
+}).catch(err => {
+  console.error(err);
+});
+
   </section>
 
   <section id="clasificacion">
