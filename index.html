@@ -14,100 +14,90 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(-45deg, #002654, #ce1126, #ffcc00, #002654);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
+      background-color: #002654; /* Azul Red Bull */
       color: #ffffff;
-      padding: 20px;
-    }
-
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
     }
 
     header {
       text-align: center;
-      margin-bottom: 30px;
+      padding: 20px;
     }
 
     .logo-box {
       display: inline-block;
       padding: 20px 30px;
       border-radius: 20px;
-      background: linear-gradient(to right, rgba(0,38,84,0.7), rgba(206,17,38,0.7));
+      background-color: #00000099;
       box-shadow: 0 0 20px rgba(255,204,0,0.5);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      margin: 0 auto;
-      text-align: center;
     }
 
     .logo-titulo {
       font-size: 2.5em;
       font-weight: 700;
-      background: linear-gradient(to right, #ffcc00, #ffffff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: 1px;
+      color: #ffcc00;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-      padding: 10px;
-      border-radius: 8px;
     }
 
     .logo-box p {
       margin-top: 10px;
       font-size: 1em;
-      color: #f1f1f1;
-      font-weight: 300;
+      color: #ccc;
     }
 
-    header, .match, .noticia, form, section {
-      background: rgba(0, 0, 0, 0.45);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-radius: 16px;
+    main {
+      display: flex;
+      gap: 20px;
       padding: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      flex-wrap: wrap;
+    }
+
+    .content {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .sidebar {
+      width: 300px;
+      background-color: #111;
+      border-radius: 10px;
+      padding: 15px;
+      overflow-y: auto;
+      max-height: 600px;
+    }
+
+    section {
+      background-color: #1a1a1a;
+      border-radius: 12px;
+      padding: 20px;
       margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
 
-    .match, .noticia {
-      transition: transform 0.2s ease;
+    .noticia {
+      background-color: #222;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
     }
 
-    .match:hover, .noticia:hover {
-      transform: scale(1.02);
-      background: linear-gradient(to right, rgba(255,204,0,0.8), rgba(206,17,38,0.8));
+    .noticia:hover {
+      background-color: #ce1126;
       color: #fff;
+      transform: scale(1.02);
     }
 
-    .teams {
-      font-weight: 600;
-      font-size: 1.2em;
-    }
-
-    .score, .time {
-      margin-top: 8px;
-    }
-
-    #loader {
-      text-align: center;
-      margin-top: 50px;
-      color: #ffcc00;
-      font-style: italic;
-    }
-
-    form {
-      max-width: 500px;
-      margin: 0 auto;
+    .match:hover {
+      background-color: #ffcc00;
+      color: #002654;
     }
 
     input, textarea, button {
       width: 100%;
       padding: 10px;
-      margin-top: 5px;
+      margin-top: 8px;
       border-radius: 6px;
       border: none;
       font-size: 1em;
@@ -115,38 +105,42 @@
     }
 
     input, textarea {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255,255,255,0.1);
       color: #fff;
     }
 
-    input::placeholder,
-    textarea::placeholder {
+    input::placeholder, textarea::placeholder {
       color: #ccc;
     }
 
     button {
-      background: linear-gradient(to right, #ce1126, #ffcc00);
-      color: #002654;
+      background-color: #ce1126;
+      color: #fff;
       font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     button:hover {
-      background: linear-gradient(to right, #ffcc00, #ce1126);
-      color: #ffffff;
+      background-color: #ffcc00;
+      color: #002654;
     }
 
     footer {
-      margin-top: 50px;
       text-align: center;
-      font-size: 0.9em;
-      color: #cccccc;
+      padding: 20px;
+      color: #aaa;
+      background-color: #111;
     }
 
-    @media (max-width: 600px) {
-      .teams {
-        font-size: 1em;
+    @media (max-width: 800px) {
+      main {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        max-height: none;
       }
     }
   </style>
@@ -156,54 +150,58 @@
   <header>
     <div class="logo-box">
       <h1 class="logo-titulo">Fútbol Internacional</h1>
-      <p>Noticias y datos en vivo gracias a API-Football, Api Gnews y Pablo xd</p>
+      <p>Noticias y datos en vivo gracias a API-Football, GNews y Pablo xd</p>
     </div>
   </header>
-  
-  <section id="nosotros">
-    <h2>Sobre la página</h2>
-    <p>Página web dedicada a brindar información sobre el deporte rey en el mundo, el "fútbol". Además, ayudamos a nuestro público seguidor en juicios estocásticos (las jijas) sobre el deporte :p</p>
-  </section>
 
-  <section id="noticias">
-    <h2>Noticias</h2> 
-    <div id="loader">🔄 Cargando noticias...</div>
-  </section>
+  <main>
+    <div class="content">
+      <section id="nosotros">
+        <h2>Sobre la página</h2>
+        <p>Página web dedicada a brindar información sobre el deporte rey en el mundo, el fútbol. Además, ayudamos a nuestro público con juicios estocásticos sobre el deporte 😄.</p>
+      </section>
 
-  <section id="clasificacion">
-    <h2>Clasificación</h2>
-    <!-- Puedes insertar una tabla o widget aquí -->
-  </section>
+      <section id="clasificacion">
+        <h2>Clasificación</h2>
+        <!-- Aquí puedes colocar tabla o widget -->
+      </section>
 
-  <section id="contacto">
-    <h2>Contacto</h2>
-    <form action="https://formspree.io/f/manookbg" method="POST">
-      <label>Nombre:<br /><input type="text" name="nombre" required /></label><br /><br />
-      <label>Correo:<br /><input type="email" name="correo" required /></label><br /><br />
-      <label>Mensaje:<br /><textarea name="mensaje" rows="5" required></textarea></label><br /><br />
-      <button type="submit">Enviar</button>
-    </form>
-  </section>
+      <section id="contacto">
+        <h2>Contacto</h2>
+        <form action="https://formspree.io/f/manookbg" method="POST">
+          <label>Nombre:<br /><input type="text" name="nombre" required /></label><br /><br />
+          <label>Correo:<br /><input type="email" name="correo" required /></label><br /><br />
+          <label>Mensaje:<br /><textarea name="mensaje" rows="5" required></textarea></label><br /><br />
+          <button type="submit">Enviar</button>
+        </form>
+      </section>
 
-  <section id="partidos">
-    <h2>Partidos en Vivo</h2>
-    <div id="wg-api-football-games"
-         data-host="v3.football.api-sports.io"
-         data-key="6a137e5e1fa7fe004de01978ea090b22"
-         data-id="718243"
-         data-date=""
-         data-league=""
-         data-season=""
-         data-theme=""
-         data-refresh="15"
-         data-show-toolbar="true"
-         data-show-errors="false"
-         data-show-logos="true"
-         data-modal-game="true"
-         data-modal-standings="true"
-         data-modal-show-logos="true">
+      <section id="partidos">
+        <h2>Partidos en Vivo</h2>
+        <div id="wg-api-football-games"
+             data-host="v3.football.api-sports.io"
+             data-key="6a137e5e1fa7fe004de01978ea090b22"
+             data-id="718243"
+             data-date=""
+             data-league=""
+             data-season=""
+             data-theme=""
+             data-refresh="15"
+             data-show-toolbar="true"
+             data-show-errors="false"
+             data-show-logos="true"
+             data-modal-game="true"
+             data-modal-standings="true"
+             data-modal-show-logos="true">
+        </div>
+      </section>
     </div>
-  </section>
+
+    <aside class="sidebar">
+      <h2>Noticias</h2>
+      <div id="loader">🔄 Cargando noticias...</div>
+    </aside>
+  </main>
 
   <footer>
     <p>&copy; 2025 Noticias de Fútbol Internacional. Todos los derechos reservados.</p>
@@ -213,9 +211,9 @@
   <script type="module" src="https://widgets.api-sports.io/2.0.3/widgets.js"></script>
 
   <script>
-    const apiKey = 'd73b4fe8536a21d0265a2e9ab698c51a'; // ← Reemplaza con tu key real
-    const url = `https://gnews.io/api/v4/search?q=fútbol&lang=es&max=5&token=${apiKey}`;
-    const noticiasDiv = document.getElementById('noticias');
+    const apiKey = 'd73b4fe8536a21d0265a2e9ab698c51a';
+    const url = `https://gnews.io/api/v4/search?q=fútbol&lang=es&max=6&token=${apiKey}`;
+    const sidebar = document.querySelector('.sidebar');
     const loader = document.getElementById('loader');
 
     fetch(url)
@@ -229,17 +227,17 @@
             noticia.innerHTML = `
               <h3>${article.title}</h3>
               <p>${article.description || 'Sin descripción'}</p>
-              <a href="${article.url}" target="_blank">Leer más</a>
+              <a href="${article.url}" target="_blank" style="color:#ffcc00;">Leer más</a>
             `;
-            noticiasDiv.appendChild(noticia);
+            sidebar.appendChild(noticia);
           });
         } else {
-          noticiasDiv.innerHTML += '<p>No se encontraron noticias recientes.</p>';
+          sidebar.innerHTML += '<p>No se encontraron noticias recientes.</p>';
         }
       })
       .catch(error => {
         loader.innerText = '❌ Error al cargar noticias.';
-        console.error('Error al obtener las noticias:', error);
+        console.error('Error al obtener noticias:', error);
       });
   </script>
 </body>
