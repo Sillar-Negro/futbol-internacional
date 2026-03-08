@@ -4,283 +4,759 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fútbol Internacional</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>⚽ Fútbol Internacional</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #001730;
+      --navy2: #002654;
+      --gold: #ffcc00;
+      --red: #ce1126;
+      --card: rgba(255,255,255,0.04);
+      --card-border: rgba(255,255,255,0.08);
+      --text: #e8eaf0;
+      --muted: #7a8499;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #002654; /* Azul Red Bull */
-      color: #ffffff;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
+    /* ── BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 10%, rgba(206,17,38,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 90% 80%, rgba(255,204,0,0.07) 0%, transparent 55%),
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.015) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.015) 40px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── HEADER ── */
     header {
-      text-align: center;
-      padding: 20px;
-    }
-
-    .logo-box {
-      display: inline-block;
-      padding: 20px 30px;
-      border-radius: 20px;
-      background-color: #00000099;
-      box-shadow: 0 0 20px rgba(255,204,0,0.5);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-
-    .logo-titulo {
-      font-size: 2.5em;
-      font-weight: 700;
-      color: #ffcc00;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-    }
-
-    .logo-box p {
-      margin-top: 10px;
-      font-size: 1em;
-      color: #ccc;
-    }
-
-    main {
+      position: relative;
+      z-index: 10;
+      padding: 40px 32px 20px;
       display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 20px;
-      padding: 20px;
       flex-wrap: wrap;
+      border-bottom: 1px solid var(--card-border);
+      backdrop-filter: blur(6px);
     }
 
-    .content {
-      flex: 1;
-      min-width: 300px;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
 
-    .sidebar {
-      width: 300px;
-      background-color: #111;
-      border-radius: 10px;
-      padding: 15px;
-      overflow-y: auto;
-      max-height: 600px;
+    .brand-icon {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, var(--red), #8b0012);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      box-shadow: 0 8px 24px rgba(206,17,38,0.4);
+      flex-shrink: 0;
     }
 
-    section {
-      background-color: #1a1a1a;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    .brand-text h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--gold);
+      letter-spacing: 2px;
+      line-height: 1;
+      text-shadow: 0 0 30px rgba(255,204,0,0.3);
     }
 
-    .noticia {
-      background-color: #222;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      transition: all 0.3s ease;
+    .brand-text span {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 3px;
+      text-transform: uppercase;
     }
 
-    .noticia:hover {
-      background-color: #ce1126;
-      color: #fff;
-      transform: scale(1.02);
+    .live-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(206,17,38,0.15);
+      border: 1px solid rgba(206,17,38,0.4);
+      border-radius: 40px;
+      padding: 8px 18px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #ff4d6a;
     }
 
-    .match:hover {
-      background-color: #ffcc00;
-      color: #002654;
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--red);
+      border-radius: 50%;
+      animation: pulse 1.4s ease-in-out infinite;
     }
 
-    input, textarea, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      border-radius: 6px;
-      border: none;
-      font-size: 1em;
-      font-family: 'Poppins', sans-serif;
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
     }
 
-    input, textarea {
-      background-color: rgba(255,255,255,0.1);
-      color: #fff;
+    /* ── NAV TABS ── */
+    nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      gap: 4px;
+      padding: 16px 32px 0;
+      border-bottom: 1px solid var(--card-border);
+      overflow-x: auto;
     }
 
-    input::placeholder, textarea::placeholder {
-      color: #ccc;
-    }
+    nav::-webkit-scrollbar { display: none; }
 
-    button {
-      background-color: #ce1126;
-      color: #fff;
-      font-weight: bold;
+    .tab {
+      padding: 10px 22px;
+      border-radius: 10px 10px 0 0;
       cursor: pointer;
-      transition: background 0.3s ease, color 0.3s ease;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      border: 1px solid transparent;
+      border-bottom: none;
+      transition: all 0.2s;
+      white-space: nowrap;
+      background: transparent;
     }
 
-    button:hover {
-      background-color: #ffcc00;
-      color: #002654;
+    .tab.active {
+      color: var(--gold);
+      background: rgba(255,204,0,0.07);
+      border-color: var(--card-border);
     }
 
-    footer {
+    .tab:hover:not(.active) {
+      color: var(--text);
+      background: var(--card);
+    }
+
+    /* ── MAIN LAYOUT ── */
+    main {
+      position: relative;
+      z-index: 5;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      padding: 28px 32px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 960px) {
+      main { grid-template-columns: 1fr; padding: 20px 16px; }
+      header { padding: 24px 16px 16px; }
+      nav { padding: 12px 16px 0; }
+    }
+
+    /* ── PANEL/SECTION ── */
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .panel-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .panel-body { padding: 20px 22px; }
+
+    /* ── MATCHES ── */
+    .matches-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .match-card {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+
+    .match-card:hover {
+      background: rgba(255,204,0,0.06);
+      border-color: rgba(255,204,0,0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .team {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .team.away { flex-direction: row-reverse; text-align: right; }
+
+    .team-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .team-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .score-box {
       text-align: center;
-      padding: 20px;
-      color: #aaa;
-      background-color: #111;
+      flex-shrink: 0;
     }
 
-    @media (max-width: 800px) {
-      main {
-        flex-direction: column;
-      }
-
-    .news-sidebar {
-        height: 80vh;
-        overflow-y: auto;
-      }
+    .score {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.7rem;
+      letter-spacing: 3px;
+      color: #fff;
     }
+
+    .match-status {
+      font-size: 0.68rem;
+      color: var(--red);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    .match-status.upcoming { color: var(--muted); }
+
+    /* ── NEWS SIDEBAR ── */
+    .news-scroll {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 560px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .news-scroll::-webkit-scrollbar { width: 4px; }
+    .news-scroll::-webkit-scrollbar-track { background: transparent; }
+    .news-scroll::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .news-card {
+      padding: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      transition: all 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .news-card:hover {
+      background: rgba(206,17,38,0.1);
+      border-color: rgba(206,17,38,0.35);
+      transform: translateX(4px);
+    }
+
+    .news-card h3 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .news-card p {
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .news-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .news-source {
+      font-size: 0.68rem;
+      color: var(--gold);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .news-link {
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+
+    /* ── CONTACT FORM ── */
+    .form-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: rgba(255,204,0,0.4);
+      box-shadow: 0 0 0 3px rgba(255,204,0,0.06);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--muted); }
+
+    .btn {
+      padding: 13px 24px;
+      background: linear-gradient(135deg, var(--red), #8b0012);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s;
+      box-shadow: 0 4px 16px rgba(206,17,38,0.35);
+      letter-spacing: 0.5px;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, var(--gold), #e6b800);
+      color: var(--navy2);
+      box-shadow: 0 4px 20px rgba(255,204,0,0.35);
+      transform: translateY(-1px);
+    }
+
+    .btn:active { transform: translateY(0); }
+
+    /* ── WIDGET SECTION ── */
+    .widget-wrap {
+      min-height: 200px;
+    }
+
+    /* ── LOADER ── */
+    .loader {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 0;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--card-border);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .error-msg {
+      color: var(--red);
+      font-size: 0.83rem;
+      padding: 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      padding: 24px 32px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--card-border);
+      letter-spacing: 0.3px;
+    }
+
+    /* ── SECTION TABS ── */
+    .section-page { display: none; }
+    .section-page.active { display: block; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      padding: 14px 22px;
+      background: #1a2a1a;
+      border: 1px solid rgba(80,200,80,0.35);
+      border-radius: 12px;
+      color: #7ddf7d;
+      font-size: 0.88rem;
+      font-weight: 500;
+      z-index: 999;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      pointer-events: none;
+    }
+
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .panel { animation: fadeUp 0.45s ease both; }
+    .panel:nth-child(2) { animation-delay: 0.08s; }
   </style>
 </head>
-
 <body>
-  <header>
-    <div class="logo-box">
-      <h1 class="logo-titulo">Fútbol Internacional</h1>
-      <p>Noticias y datos en vivo gracias a API-Football, GNews y Pablo xd</p>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">⚽</div>
+    <div class="brand-text">
+      <h1>Fútbol Internacional</h1>
+      <span>Noticias · Partidos · Resultados</span>
     </div>
-  </header>
-
-  <main>
-    <div class="content">
-      <section id="nosotros">
-        <h2>Sobre la página</h2>
-        <p>Página web dedicada a brindar información sobre el deporte rey en el mundo, el fútbol. Además, ayudamos a nuestro público con juicios estocásticos (las jijas) sobre el deporte rey 😄.</p>
-      </section>
-
-    <section id="clasificacion">
-  <h2>Clasificación UEFA Champions League 2024–25</h2>
-  <p>Liga de Campeones de la UEFA</p>
-  <div style="overflow-x:auto;">
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Abrev</th>
-          <th>Equipo</th>
-          <th>J</th>
-          <th>G</th>
-          <th>E</th>
-          <th>P</th>
-          <th>GF</th>
-          <th>GC</th>
-          <th>DIF</th>
-          <th>PTS</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>1</td><td>LIV</td><td>Liverpool</td><td>8</td><td>7</td><td>0</td><td>1</td><td>17</td><td>5</td><td>+12</td><td>21</td></tr>
-        <tr><td>2</td><td>BAR</td><td>Barcelona</td><td>8</td><td>6</td><td>1</td><td>1</td><td>28</td><td>13</td><td>+15</td><td>19</td></tr>
-        <tr><td>3</td><td>ARS</td><td>Arsenal</td><td>8</td><td>6</td><td>1</td><td>1</td><td>16</td><td>3</td><td>+13</td><td>19</td></tr>
-        <tr><td>4</td><td>INT</td><td>Internazionale</td><td>8</td><td>6</td><td>1</td><td>1</td><td>11</td><td>1</td><td>+10</td><td>19</td></tr>
-        <tr><td>5</td><td>ATL</td><td>Atlético Madrid</td><td>8</td><td>6</td><td>0</td><td>2</td><td>20</td><td>12</td><td>+8</td><td>18</td></tr>
-        <tr><td>6</td><td>LEV</td><td>Bayer Leverkusen</td><td>8</td><td>5</td><td>1</td><td>2</td><td>15</td><td>7</td><td>+8</td><td>16</td></tr>
-        <tr><td>7</td><td>LILL</td><td>Lille</td><td>8</td><td>5</td><td>1</td><td>2</td><td>17</td><td>10</td><td>+7</td><td>16</td></tr>
-        <tr><td>8</td><td>AVL</td><td>Aston Villa</td><td>8</td><td>5</td><td>1</td><td>2</td><td>13</td><td>6</td><td>+7</td><td>16</td></tr>
-        <tr><td>9</td><td>ATA</td><td>Atalanta</td><td>8</td><td>4</td><td>3</td><td>1</td><td>20</td><td>6</td><td>+14</td><td>15</td></tr>
-        <tr><td>10</td><td>DOR</td><td>Borussia Dortmund</td><td>8</td><td>5</td><td>0</td><td>3</td><td>22</td><td>12</td><td>+10</td><td>15</td></tr>
-        <tr><td>11</td><td>MAD</td><td>Real Madrid</td><td>8</td><td>5</td><td>0</td><td>3</td><td>20</td><td>12</td><td>+8</td><td>15</td></tr>
-        <tr><td>12</td><td>BMU</td><td>Bayern Munich</td><td>8</td><td>5</td><td>0</td><td>3</td><td>20</td><td>12</td><td>+8</td><td>15</td></tr>
-        <tr><td>13</td><td>MIL</td><td>AC Milan</td><td>8</td><td>5</td><td>0</td><td>3</td><td>14</td><td>11</td><td>+3</td><td>15</td></tr>
-        <tr><td>14</td><td>PSV</td><td>PSV Eindhoven</td><td>8</td><td>4</td><td>2</td><td>2</td><td>16</td><td>12</td><td>+4</td><td>14</td></tr>
-        <tr><td>15</td><td>PSG</td><td>Paris Saint-Germain</td><td>8</td><td>4</td><td>1</td><td>3</td><td>14</td><td>9</td><td>+5</td><td>13</td></tr>
-        <tr><td>16</td><td>BEN</td><td>Benfica</td><td>8</td><td>4</td><td>1</td><td>3</td><td>16</td><td>12</td><td>+4</td><td>13</td></tr>
-        <tr><td>17</td><td>MON</td><td>AS Mónaco</td><td>8</td><td>4</td><td>1</td><td>3</td><td>13</td><td>13</td><td>0</td><td>13</td></tr>
-        <tr><td>18</td><td>BRS</td><td>Brest</td><td>8</td><td>4</td><td>1</td><td>3</td><td>10</td><td>11</td><td>-1</td><td>13</td></tr>
-        <tr><td>19</td><td>FEY</td><td>Feyenoord</td><td>8</td><td>4</td><td>1</td><td>3</td><td>18</td><td>21</td><td>-3</td><td>13</td></tr>
-        <tr><td>20</td><td>JUV</td><td>Juventus</td><td>8</td><td>3</td><td>3</td><td>2</td><td>9</td><td>7</td><td>+2</td><td>12</td></tr>
-        <!-- Puedes seguir añadiendo más equipos si deseas -->
-      </tbody>
-    </table>
   </div>
-</section>
-      
-      <section id="contacto">
-        <h2>Contacto</h2>
-        <form action="https://formspree.io/f/manookbg" method="POST">
-          <label>Nombre:<br /><input type="text" name="nombre" required /></label><br /><br />
-          <label>Correo:<br /><input type="email" name="correo" required /></label><br /><br />
-          <label>Mensaje:<br /><textarea name="mensaje" rows="5" required></textarea></label><br /><br />
-          <button type="submit">Enviar</button>
-        </form>
-      </section>
+  <div class="live-badge">
+    <div class="live-dot"></div>
+    EN VIVO
+  </div>
+</header>
 
-      <section id="partidos">
-        <h2>Partidos en Vivo</h2>
-        <div id="wg-api-football-games"
-             data-host="v3.football.api-sports.io"
-             data-key="6a137e5e1fa7fe004de01978ea090b22"
-             data-id="718243"
-             data-date=""
-             data-league=""
-             data-season=""
-             data-theme=""
-             data-refresh="15"
-             data-show-toolbar="true"
-             data-show-errors="false"
-             data-show-logos="true"
-             data-modal-game="true"
-             data-modal-standings="true"
-             data-modal-show-logos="true">
+<nav id="navTabs">
+  <button class="tab active" data-tab="partidos">🏟️ Partidos</button>
+  <button class="tab" data-tab="noticias-full">📰 Noticias</button>
+  <button class="tab" data-tab="contacto">✉️ Contacto</button>
+</nav>
+
+<main>
+  <!-- LEFT COLUMN -->
+  <div class="content">
+
+    <!-- PARTIDOS TAB -->
+    <section class="panel section-page active" id="partidos">
+      <div class="panel-header">
+        <div class="panel-title">🏟️ Partidos en Vivo</div>
+      </div>
+      <div class="panel-body">
+        <div class="widget-wrap">
+          <div id="wg-api-football-games"
+               data-host="v3.football.api-sports.io"
+               data-key="6a137e5e1fa7fe004de01978ea090b22"
+               data-id="718243"
+               data-date=""
+               data-league=""
+               data-season=""
+               data-theme="dark"
+               data-refresh="15"
+               data-show-toolbar="true"
+               data-show-errors="false"
+               data-show-logos="true"
+               data-modal-game="true"
+               data-modal-standings="true"
+               data-modal-show-logos="true">
+          </div>
         </div>
-      </section>
+
+        <!-- Demo match cards while widget loads -->
+        <div class="matches-grid" id="demoMatches">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- NOTICIAS FULL TAB -->
+    <section class="panel section-page" id="noticias-full">
+      <div class="panel-header">
+        <div class="panel-title">📰 Últimas Noticias</div>
+      </div>
+      <div class="panel-body">
+        <div id="newsFullLoader" class="loader"><div class="spinner"></div> Cargando noticias...</div>
+        <div id="newsFullGrid" style="display:grid; gap:12px;"></div>
+      </div>
+    </section>
+
+    <!-- CONTACTO TAB -->
+    <section class="panel section-page" id="contacto">
+      <div class="panel-header">
+        <div class="panel-title">✉️ Contáctanos</div>
+      </div>
+      <div class="panel-body">
+        <form class="form-grid" action="https://formspree.io/f/manookbg" method="POST" id="contactForm">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required />
+          </div>
+          <div class="form-group">
+            <label for="correo">Correo Electrónico</label>
+            <input type="email" id="correo" name="correo" placeholder="tu@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+          </div>
+          <button type="submit" class="btn">Enviar Mensaje</button>
+        </form>
+      </div>
+    </section>
+
+  </div><!-- /content -->
+
+  <!-- RIGHT SIDEBAR -->
+  <aside>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">📰 Noticias</div>
+      </div>
+      <div class="panel-body" style="padding-top:14px;">
+        <div id="newsLoader" class="loader"><div class="spinner"></div> Cargando...</div>
+        <div class="news-scroll" id="newsFeed"></div>
+        <div id="newsError" class="error-msg" style="display:none;">❌ Error al cargar noticias.</div>
+      </div>
     </div>
+  </aside>
 
-    <aside class="sidebar">
-      <h2>Noticias</h2>
-      <div id="loader">🔄 Cargando noticias...</div>
-    </aside>
-  </main>
+</main>
 
-  <footer>
-    <p>&copy; 2025 Noticias de Fútbol Internacional. Todos los derechos reservados.</p>
-  </footer>
+<footer>
+  <p>&copy; 2025 Fútbol Internacional · Todos los derechos reservados.</p>
+</footer>
 
-  <!-- Scripts -->
-  <script type="module" src="https://widgets.api-sports.io/2.0.3/widgets.js"></script>
+<div class="toast" id="toast"></div>
 
-  <script>
-    const apiKey = 'd73b4fe8536a21d0265a2e9ab698c51a';
-    const url = `https://gnews.io/api/v4/search?q=fútbol&lang=es&max=6&token=${apiKey}`;
-    const sidebar = document.querySelector('.sidebar');
-    const loader = document.getElementById('loader');
+<!-- Widget script -->
+<script type="module" src="https://widgets.api-sports.io/2.0.3/widgets.js"></script>
 
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        loader.remove();
-        if (data.articles && data.articles.length > 0) {
-          data.articles.forEach(article => {
-            const noticia = document.createElement('div');
-            noticia.className = 'noticia';
-            noticia.innerHTML = `
-              <h3>${article.title}</h3>
-              <p>${article.description || 'Sin descripción'}</p>
-              <a href="${article.url}" target="_blank" style="color:#ffcc00;">Leer más</a>
-            `;
-            sidebar.appendChild(noticia);
-          });
-        } else {
-          sidebar.innerHTML += '<p>No se encontraron noticias recientes.</p>';
-        }
-      })
-      .catch(error => {
-        loader.innerText = '❌ Error al cargar noticias.';
-        console.error('Error al obtener noticias:', error);
+<script>
+  /* ── NAV TABS ── */
+  const tabs = document.querySelectorAll('.tab');
+  const pages = document.querySelectorAll('.section-page');
+  let newsFullLoaded = false;
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      pages.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      const target = tab.dataset.tab;
+      document.getElementById(target).classList.add('active');
+
+      if (target === 'noticias-full' && !newsFullLoaded) {
+        loadNewsGrid();
+        newsFullLoaded = true;
+      }
+    });
+  });
+
+  /* ── TOAST ── */
+  function showToast(msg, color = '#7ddf7d') {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.style.color = color;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  /* ── FETCH NEWS (sidebar) ── */
+  const NEWS_KEY = 'd73b4fe8536a21d0265a2e9ab698c51a';
+
+  async function fetchNews(max = 6) {
+    const url = `https://gnews.io/api/v4/search?q=fútbol&lang=es&max=${max}&token=${NEWS_KEY}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    return data.articles || [];
+  }
+
+  function renderNewsSidebar(articles) {
+    const feed = document.getElementById('newsFeed');
+    document.getElementById('newsLoader').style.display = 'none';
+    if (!articles.length) {
+      feed.innerHTML = '<p style="color:var(--muted);font-size:.83rem;">No se encontraron noticias.</p>';
+      return;
+    }
+    articles.forEach(a => {
+      const card = document.createElement('a');
+      card.className = 'news-card';
+      card.href = a.url;
+      card.target = '_blank';
+      card.rel = 'noopener noreferrer';
+      const src = a.source?.name || 'Fuente';
+      const pub = a.publishedAt ? new Date(a.publishedAt).toLocaleDateString('es-PE', { month:'short', day:'numeric' }) : '';
+      card.innerHTML = `
+        <h3>${escHtml(a.title)}</h3>
+        ${a.description ? `<p>${escHtml(a.description)}</p>` : ''}
+        <div class="news-meta">
+          <span class="news-source">${escHtml(src)}</span>
+          <span class="news-link">${pub} ↗</span>
+        </div>`;
+      feed.appendChild(card);
+    });
+  }
+
+  function loadNewsGrid() {
+    fetchNews(12).then(articles => {
+      const grid = document.getElementById('newsFullGrid');
+      document.getElementById('newsFullLoader').style.display = 'none';
+      if (!articles.length) {
+        grid.innerHTML = '<p style="color:var(--muted)">No hay noticias disponibles.</p>';
+        return;
+      }
+      grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(280px, 1fr))';
+      articles.forEach(a => {
+        const card = document.createElement('a');
+        card.className = 'news-card';
+        card.href = a.url;
+        card.target = '_blank';
+        card.rel = 'noopener noreferrer';
+        const src = a.source?.name || '';
+        const pub = a.publishedAt ? new Date(a.publishedAt).toLocaleDateString('es-PE', { year:'numeric', month:'short', day:'numeric' }) : '';
+        card.innerHTML = `
+          <h3 style="margin-bottom:8px;font-size:.9rem;">${escHtml(a.title)}</h3>
+          ${a.description ? `<p style="color:var(--muted);font-size:.8rem;line-height:1.5;margin-bottom:8px;">${escHtml(a.description)}</p>` : ''}
+          <div class="news-meta">
+            <span class="news-source">${escHtml(src)}</span>
+            <span style="font-size:.68rem;color:var(--muted);">${pub}</span>
+          </div>`;
+        grid.appendChild(card);
       });
-  </script>
+    }).catch(() => {
+      document.getElementById('newsFullLoader').innerHTML = '<span style="color:var(--red)">❌ Error al cargar noticias.</span>';
+    });
+  }
+
+  /* ── INIT ── */
+  fetchNews(6)
+    .then(renderNewsSidebar)
+    .catch(() => {
+      document.getElementById('newsLoader').style.display = 'none';
+      document.getElementById('newsError').style.display = 'flex';
+    });
+
+  /* ── CONTACT FORM ── */
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('button');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+    try {
+      const res = await fetch(this.action, {
+        method: 'POST',
+        body: new FormData(this),
+        headers: { Accept: 'application/json' }
+      });
+      if (res.ok) {
+        this.reset();
+        showToast('✅ Mensaje enviado correctamente');
+      } else {
+        showToast('❌ Error al enviar. Intenta nuevamente.', '#ff6b6b');
+      }
+    } catch {
+      showToast('❌ Error de red. Intenta nuevamente.', '#ff6b6b');
+    }
+    btn.textContent = 'Enviar Mensaje';
+    btn.disabled = false;
+  });
+
+  /* ── HELPERS ── */
+  function escHtml(str) {
+    return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+</script>
 </body>
 </html>
+
+
